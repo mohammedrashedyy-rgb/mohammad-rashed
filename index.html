@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>اللجنة الاجتماعية | مدرسة شعب البطم الثانوية</title>
+<style>
+:root{--navy:#17324d;--teal:#167d8d;--gold:#f0b44c;--bg:#f3f6fa;--ink:#203040;--muted:#6c7b8a;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(130deg,#17324d,#167d8d);color:#fff;padding:28px 18px 34px;text-align:center}
+header .badge{display:inline-block;border:1px solid #ffffff70;border-radius:99px;padding:6px 13px;font-size:13px;margin-bottom:12px}
+h1{margin:4px 0 8px;font-size:clamp(24px,4vw,36px)}header p{margin:0;color:#e2f3f6}
+.wrap{max-width:1100px;margin:-18px auto 35px;padding:0 15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat,.panel{background:#fff;border-radius:16px;padding:18px;box-shadow:0 5px 22px #16324d0d}
+.stat small{color:var(--muted)}.stat strong{display:block;font-size:clamp(21px,3vw,29px);margin-top:8px;color:var(--navy)}
+.tabs{display:flex;gap:9px;margin:12px 0;flex-wrap:wrap}.tab{border:0;border-radius:10px;padding:12px 18px;background:#e2eaf0;color:var(--navy);font-weight:bold;cursor:pointer}.tab.active{background:var(--teal);color:white}
+.panel h2{margin:0 0 6px;color:var(--navy)}.hint{margin:0 0 16px;color:var(--muted);font-size:14px}
+form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:end;margin-bottom:18px}
+label{font-size:13px;color:#526273;display:block;margin-bottom:6px}
+input,textarea{width:100%;border:1px solid #d4dee7;border-radius:9px;padding:11px;font:inherit;background:#fff;color:var(--ink)}
+button{font:inherit}.primary{border:0;border-radius:9px;background:var(--navy);color:white;padding:12px 16px;cursor:pointer;font-weight:bold}.danger{border:0;border-radius:7px;background:#fee8e7;color:#a32925;padding:7px 10px;cursor:pointer}.secondary{border:1px solid #cad6df;border-radius:9px;background:white;color:var(--navy);padding:10px 13px;cursor:pointer}
+.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{text-align:right;padding:12px;border-bottom:1px solid #e8edf1}th{background:#f0f5f8;color:#344d60;font-size:13px}td{font-size:14px}.empty{text-align:center;color:var(--muted);padding:25px}
+.section{display:none}.section.active{display:block}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:18px}.footer{text-align:center;padding:18px;color:var(--muted);font-size:13px}
+@media(max-width:720px){.stats{grid-template-columns:1fr}.stat{padding:14px}form{grid-template-columns:1fr 1fr}.wrap{margin-top:-14px}.panel{padding:14px}}
+@media(max-width:430px){form{grid-template-columns:1fr}.tab{flex:1}}
+@media print{header{padding:12px;background:#fff!important;color:#000;border-bottom:2px solid #333}header p,.badge,.tabs,form,.actions,.danger,.note{display:none!important}.wrap{margin:0;max-width:none}.panel,.stat{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.section{display:block!important}.stats{grid-template-columns:repeat(3,1fr)}body{background:white}.footer{display:none}}
+</style></head>
+<body>
+<header><span class="badge">إدارة مالية مبسطة</span><h1>اللجنة الاجتماعية</h1><p>مدرسة شعب البطم الثانوية</p></header>
+<main class="wrap">
+<div class="stats">
+<div class="stat"><small>إجمالي المبالغ المستحقة</small><strong id="dueTotal">0.00 ₪</strong></div>
+<div class="stat"><small>إجمالي ما تم تحصيله</small><strong id="paidTotal">0.00 ₪</strong></div>
+<div class="stat"><small>إجمالي المصروفات</small><strong id="expenseTotal">0.00 ₪</strong></div>
+</div>
+<div class="panel" style="margin-bottom:15px"><small style="color:#6c7b8a">الرصيد الحالي (المحصّل − المصروفات)</small><strong id="balance" style="display:block;font-size:28px;color:#167d8d;margin-top:7px">0.00 ₪</strong></div>
+<nav class="tabs"><button class="tab active" data-target="contributions">💰 المبالغ الشهرية</button><button class="tab" data-target="expenses">🧾 مصروفات اللجنة</button><button class="tab" data-target="reports">📊 التقارير والطباعة</button></nav>
+<section id="contributions" class="panel section active">
+<h2>المبالغ التي سيتم جمعها هذا الشهر</h2><p class="hint">أدخل بيانات كل معلم، وحدّث المبلغ المدفوع عند التحصيل.</p>
+<form id="contribForm">
+<div><label for="teacher">اسم المعلم</label><input id="teacher" required placeholder="اسم المعلم"></div>
+<div><label for="amount">المبلغ المطلوب (₪)</label><input id="amount" type="number" min="0" step="0.01" required placeholder="0.00"></div>
+<div><label for="paid">المبلغ المدفوع (₪)</label><input id="paid" type="number" min="0" step="0.01" value="0" required></div>
+<div><button class="primary" type="submit">＋ إضافة سجل</button></div>
+</form>
+<div><label for="searchTeacher">البحث عن معلم</label><input id="searchTeacher" placeholder="اكتب اسم المعلم للبحث..."></div>
+<div class="table-wrap"><table><thead><tr><th>اسم المعلم</th><th>المطلوب</th><th>المدفوع</th><th>المتبقي</th><th>الإجراء</th></tr></thead><tbody id="contribRows"></tbody></table></div>
+</section>
+<section id="expenses" class="panel section">
+<h2>مصروفات اللجنة الاجتماعية</h2><p class="hint">سجّل تفاصيل كل عملية صرف لمتابعة أموال اللجنة.</p>
+<form id="expenseForm">
+<div><label for="expenseName">بيان المصروف</label><input id="expenseName" required placeholder="مثال: ضيافة أو مساعدة"></div>
+<div><label for="expenseAmount">المبلغ (₪)</label><input id="expenseAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></div>
+<div><label for="expenseDate">التاريخ</label><input id="expenseDate" type="date" required></div>
+<div><button class="primary" type="submit">＋ إضافة مصروف</button></div>
+</form>
+<div class="table-wrap"><table><thead><tr><th>بيان المصروف</th><th>المبلغ</th><th>التاريخ</th><th>الإجراء</th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+</section>
+<section id="reports" class="panel section"><h2>التقارير المالية</h2><p class="hint">يمكن طباعة كشف المبالغ والمصروفات أو حفظ نسخة احتياطية من البيانات.</p><div class="actions"><button class="primary" onclick="window.print()">🖨️ طباعة التقرير</button><button class="secondary" id="exportBtn">⬇️ تصدير نسخة احتياطية</button><label class="secondary" for="importFile" style="cursor:pointer">⬆️ استيراد نسخة احتياطية</label><input id="importFile" type="file" accept="application/json" style="display:none"></div><h3>كشف المبالغ الشهرية</h3><div class="table-wrap"><table><thead><tr><th>اسم المعلم</th><th>المطلوب</th><th>المدفوع</th><th>المتبقي</th></tr></thead><tbody id="reportContribRows"></tbody></table></div><h3>كشف المصروفات</h3><div class="table-wrap"><table><thead><tr><th>بيان المصروف</th><th>المبلغ</th><th>التاريخ</th></tr></thead><tbody id="reportExpenseRows"></tbody></table></div></section>
+<p class="note">تنبيه مهم: تُحفظ البيانات في هذا المتصفح على هذا الجهاز فقط. لا تُزامَن تلقائيًا مع أجهزة المعلمين الأخرى. استخدم «تصدير نسخة احتياطية» لحفظ البيانات ونقلها، ولا تُدخل معلومات شخصية حساسة.</p>
+</main><div class="footer">إعداد وتنفيذ: المعلم محمد راشد · مدرسة شعب البطم الثانوية</div>
+<script>
+const $=id=>document.getElementById(id);
+const KEY='shuaabSocialCommitteeV1';
+let data={contributions:[],expenses:[]};
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&Array.isArray(saved.contributions)&&Array.isArray(saved.expenses))data=saved}catch(e){}
+const money=n=>(Number(n)||0).toLocaleString('ar-PS',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₪';
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function render(){
+ const due=data.contributions.reduce((s,x)=>s+Number(x.amount),0),paid=data.contributions.reduce((s,x)=>s+Number(x.paid),0),spent=data.expenses.reduce((s,x)=>s+Number(x.amount),0);
+ $('dueTotal').textContent=money(due);$('paidTotal').textContent=money(paid);$('expenseTotal').textContent=money(spent);$('balance').textContent=money(paid-spent);
+ const q=$('searchTeacher').value.trim().toLowerCase();
+ const rows=data.contributions.map((x,i)=>({...x,i})).filter(x=>x.teacher.toLowerCase().includes(q));
+ $('contribRows').innerHTML=rows.length?rows.map(x=>'<tr><td>'+safe(x.teacher)+'</td><td>'+money(x.amount)+'</td><td>'+money(x.paid)+'</td><td>'+money(Math.max(0,Number(x.amount)-Number(x.paid)))+'</td><td><button class="danger" onclick="removeContribution('+x.i+')">حذف</button></td></tr>').join(''):'<tr><td colspan="5" class="empty">لا توجد سجلات بعد.</td></tr>';
+ $('expenseRows').innerHTML=data.expenses.length?data.expenses.map((x,i)=>'<tr><td>'+safe(x.name)+'</td><td>'+money(x.amount)+'</td><td>'+safe(x.date)+'</td><td><button class="danger" onclick="removeExpense('+i+')">حذف</button></td></tr>').join(''):'<tr><td colspan="4" class="empty">لا توجد مصروفات مسجلة بعد.</td></tr>';
+ $('reportContribRows').innerHTML=data.contributions.length?data.contributions.map(x=>'<tr><td>'+safe(x.teacher)+'</td><td>'+money(x.amount)+'</td><td>'+money(x.paid)+'</td><td>'+money(Math.max(0,Number(x.amount)-Number(x.paid)))+'</td></tr>').join(''):'<tr><td colspan="4" class="empty">لا توجد سجلات.</td></tr>';
+ $('reportExpenseRows').innerHTML=data.expenses.length?data.expenses.map(x=>'<tr><td>'+safe(x.name)+'</td><td>'+money(x.amount)+'</td><td>'+safe(x.date)+'</td></tr>').join(''):'<tr><td colspan="3" class="empty">لا توجد مصروفات.</td></tr>';
+}
+window.removeContribution=i=>{if(confirm('هل تريد حذف سجل هذا المعلم؟')){data.contributions.splice(i,1);persist()}};
+window.removeExpense=i=>{if(confirm('هل تريد حذف هذا المصروف؟')){data.expenses.splice(i,1);persist()}};
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===b.dataset.target))}));
+$('contribForm').addEventListener('submit',e=>{e.preventDefault();const teacher=$('teacher').value.trim(),amount=Number($('amount').value),paid=Number($('paid').value);if(!teacher||amount<0||paid<0)return;data.contributions.push({teacher,amount,paid});e.target.reset();$('paid').value='0';persist()});
+$('expenseForm').addEventListener('submit',e=>{e.preventDefault();data.expenses.push({name:$('expenseName').value.trim(),amount:Number($('expenseAmount').value),date:$('expenseDate').value});e.target.reset();$('expenseDate').value=new Date().toISOString().slice(0,10);persist()});
+$('searchTeacher').addEventListener('input',render);
+$('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='نسخة-اللجنة-الاجتماعية.json';a.click();URL.revokeObjectURL(a.href)});
+$('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!Array.isArray(x.contributions)||!Array.isArray(x.expenses))throw Error();if(confirm('سيتم استبدال البيانات الحالية بالنسخة المستوردة. هل تريد المتابعة؟')){data=x;persist();alert('تم استيراد البيانات بنجاح')}}catch(err){alert('تعذّر قراءة الملف. اختر نسخة احتياطية صالحة.')}e.target.value=''});
+$('expenseDate').value=new Date().toISOString().slice(0,10);render();
+</script></body></html>
